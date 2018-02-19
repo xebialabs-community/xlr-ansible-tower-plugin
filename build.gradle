@@ -26,6 +26,13 @@ dependencies {
             from "six.py"
         }
     }
+    jython python(":pyyaml:3.12") {
+        useModuleName = false
+        copy {
+            from "PyYAML-3.12/lib/yaml"
+            into "yaml"
+        }
+    }
 }
 
 project.ext {
