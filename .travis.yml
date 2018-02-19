@@ -1,0 +1,14 @@
+language: java
+script: "./gradlew clean build"
+before_deploy:
+  - export UPLOAD_FILE=$(ls build/libs/xlr-ansible-tower-plugin*.jar)
+
+deploy:
+  provider: releases
+  api_key:
+    secure: TY6yHzhKmYxuEB+XmKgd4NOeHnWdfpkh42TNzjieL5kKEj3nqkGpGO9aMQwMsbN7xDhhTCDzZnm95S4b6Z4ZX09Clh7DXAhz4hOvCkZGjZPvgyAk/dMqQZDQVXPSVleO+9KxhbBDa2nI/Oa9KMoX7FLtQUI0ntwjmoICq0ZuZWM5HjG09dODolj7EjpP1Zd97dc+Lg9mK60Oeal4Acr9sWY3hUYjX2VLiO6o3fg2rFnHfR4ejXkIuiKl4PuIFEDcmXELGLirfDL3ZbZmQ1dZ7k0fQG4cXu6sqFJd5gA/eutKUnTKq3vfbc3P281h02Fr1msgdsLE4mHdgY7ElniVEttGGo5Y/d/lJOecJmXojOqTv9Lu8bigPBmRtirKTY4pyPWKDb2R9TsxlDuvA6tHiIp0E9iNHadlrRi9puUHdmP5c0HV5qzjn5GhEorXwQzszE4L8CvVw2QgXq24SOU1wA6NoBgdKR1PI1hrg0BNCp0FEPndorgUdUfZVcQMiwoPic06CIQocS6pVtuKE7xUaJRy5YJ0LsQLLagRdWF23zJEy6hMATs6mHfyH7n/fkzCHjt7ipgEXk7hKuTIhib9tpOqVAh2/wUuFMMPTx0aOqjiMjF0Feh5EwnGqAtxBO1IO39bSsi4LqlXQKS505nj/sm6RAVdQDRdgZKDtI4PU24=
+  file: "${UPLOAD_FILE}"
+  skip_cleanup: true
+  on:
+    repo: xebialabs-community/xlr-ansible-tower-plugin
+    tags: true
