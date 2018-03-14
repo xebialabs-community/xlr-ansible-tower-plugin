@@ -13,12 +13,12 @@ from ansible_tower.connect_util import session
 
 
 def process(task_vars):
-    with session(task_vars['tower_server']):
+    with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
         try:
             print("\n", "```")  # started markdown code block
             res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'],
-                             extra_vars=task_vars['extraVars'])
+                             extra_vars=task_vars['extraVars'].update({'inventory':task_vars['inventory'],'credential':task_vars['credential']}))
         finally:
             print("```\n")  # end markdown code block
 

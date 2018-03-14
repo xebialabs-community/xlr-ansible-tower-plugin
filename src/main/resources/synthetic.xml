@@ -22,7 +22,7 @@
     <type type="ansible.TowerTask" extends="xlrelease.PythonScript" virtual="true">
         <property name="taskColor" hidden="true" default="#FF9E3B"/>
         <property name="iconLocation" default="tower/tower_logo.svg" hidden="true"/>
-        <property name="towerServer" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower" kind="ci" required="true" description="Ansible Tower Server."/>
+        <property name="tower_server" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower" kind="ci" required="true" description="Ansible Tower Server."/>
         <property name="username" category="input" required="false" />
 	<property name="password" password="true" category="input" required="false" />
     </type>
