@@ -1,8 +1,7 @@
 .gradle
 .idea
 build
-supervisord.log
-supervisord.pid
+supervisord.*
 out
 *$py.class
 *.iml

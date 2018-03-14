@@ -14,30 +14,35 @@
            xmlns="http://www.xebialabs.com/deployit/synthetic"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="ansible.Tower" extends="xlrelease.Configuration">
-        <property name="url" required="true"/>
-        <property name="username" required="true"/>
-        <property name="password" required="true" password="true"/>
+    <type type="ansible.Tower" extends="configuration.HttpConnection">
+        <property name="checkConfigurationPath" hidden="true" default="/api/"/>
+        <property name="scriptLocation" hidden="true" default="ansible/HttpConnectionCheck.py"/>
     </type>
 
     <type type="ansible.TowerTask" extends="xlrelease.PythonScript" virtual="true">
         <property name="taskColor" hidden="true" default="#FF9E3B"/>
         <property name="iconLocation" default="tower/tower_logo.svg" hidden="true"/>
-        <property name="tower_server" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower" kind="ci" required="true" description="Ansible Tower Server."/>
-
+        <property name="towerServer" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower" kind="ci" required="true" description="Ansible Tower Server."/>
+        <property name="username" category="input" required="false" />
+	<property name="password" password="true" category="input" required="false" />
     </type>
 
     <type type="ansible.LaunchJob" extends="ansible.TowerTask">
         <property name="scriptLocation" hidden="true" default="ansible_tower/run_job_template.py"/>
         <!-- input params -->
         <property name="jobTemplate" category="input" required="true" description="Primary key or name of the job template to launch new job."/>
-        <property name="extraVars" category="input" required="false" kind="list_of_string" size="large" description="yaml formatted texts that contains extra variables to pass on."/>
+       <property name="jobTemplateId" category="input" kind="integer" required="true" />        
+        <property name="inventory" category="input" kind="integer" required="false" description="A integer value for the foreign key of an inventory to use in this job run"/>
+        <property name="credential" category="input" kind="integer" required="false" description="A integer value for the foreign key of a credential to use in this job run" />   
+	<property name="extraVars" category="input" required="false" kind="list_of_string" size="large" description="yaml formatted texts that contains extra variables to pass on."/>
         <property name="waitTillComplete" kind="boolean"  category="input" required="false" default="true" description="Wait for successful completion or fail."/>
         <property name="stopOnFailure" kind="boolean"  category="input" required="false" default="true" description="Fail task when job fails"/>
         <!-- output params -->
         <property name="jobId" category="output" />
         <property name="jobStatus" category="output" />
     </type>
+    
+    <type type="ansible.LaunchJobTemplate" extends="ansible.LaunchJob" />
 
 </synthetic>
 
