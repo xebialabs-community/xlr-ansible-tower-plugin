@@ -14,6 +14,9 @@ from ansible_tower.connect_util import session
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
+        inventory = None
+        if task_vars['inventory']:
+            inventory = task_vars['inventory']
         try:
             print("\n", "```")  # started markdown code block
             extraVars = task_vars['extraVars']

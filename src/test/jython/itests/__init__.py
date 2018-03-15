@@ -78,3 +78,5 @@ class LaunchJobTask(Ci):
         self.extraVars = []
         self.waitTillComplete = True
         self.stopOnFailure = True
+        self.inventory = None
+
