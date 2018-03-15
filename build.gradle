@@ -10,7 +10,7 @@ repositories {
 
 defaultTasks 'build'
 
-version='7.6.0'
+version='7.6.1'
 
 sourceSets.main.resources.srcDirs += ["src/main/jython"]
 sourceSets.test.resources.srcDirs += ["src/test/jython"]

@@ -15,10 +15,13 @@ from ansible_tower.connect_util import session
 def process(task_vars):
     with session(task_vars['tower_server']):
         job = get_resource('job')
+        inventory = None
+        if task_vars['inventory']:
+            inventory = task_vars['inventory']
         try:
             print("\n", "```")  # started markdown code block
             res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'],
-                             extra_vars=task_vars['extraVars'])
+                             extra_vars=task_vars['extraVars'], inventory=inventory)
         finally:
             print("```\n")  # end markdown code block
 
