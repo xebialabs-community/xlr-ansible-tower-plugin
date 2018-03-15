@@ -11,14 +11,17 @@
 from tower_cli import get_resource
 from ansible_tower.connect_util import session
 
-
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
         try:
             print("\n", "```")  # started markdown code block
-            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'],
-                             extra_vars=task_vars['extraVars'].update({'inventory':task_vars['inventory'],'credential':task_vars['credential']}))
+            extraVars = task_vars['extraVars']
+            if task_vars['inventory']:
+                extraVars.append("inventory=%s" % task_vars['inventory'])
+            if task_vars['credential']:
+                extraVars.append("credential=%s" % task_vars['credential'])
+            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], extra_vars=extraVars)
         finally:
             print("```\n")  # end markdown code block
 
@@ -27,7 +30,6 @@ def process(task_vars):
         print("[Job %s Link](%s/#jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         if task_vars['stopOnFailure'] and not res['status'] == 'successful':
             raise Exception("Failed with status %s" % res['status'])
-
 
 if __name__ == '__main__' or __name__ == '__builtin__':
     process(locals())
