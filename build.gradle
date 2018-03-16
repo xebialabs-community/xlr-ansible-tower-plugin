@@ -26,6 +26,14 @@ repositories {
 
 defaultTasks 'build'
 
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
+}
+
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
 sourceSets.main.resources.srcDirs += ["src/main/jython"]
 sourceSets.test.resources.srcDirs += ["src/test/jython"]
 
@@ -64,14 +72,6 @@ task itests(type: Exec, dependsOn: ['testClasses']) {
     environment = ["itest_conf_file": "$projectDir/itest-conf.json", "PATH": System.getenv("PATH"), "HOME": System.getenv("HOME")]
     commandLine jythonInterpreter, "-Dpython.path={$sourceSets.test.runtimeClasspath.asPath}:{$sourceSets.main.runtimeClasspath.asPath}", "-m", "unittest", "discover", "-s", "./src/test/jython", "-p", "*_test.py", "-v"
     workingDir = projectDir
-}
-
-if (!project.hasProperty('release.scope')) {
-  project.ext['release.scope'] = 'patch'
-}
-
-if (!project.hasProperty('release.useLastTag')) {
-  project.ext['release.useLastTag'] = true
 }
 
 license {
