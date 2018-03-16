@@ -1,8 +1,15 @@
-# XLR Ansible Tower Plugin
+# XL Release Ansible Tower Plugin
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin.svg?branch=master)](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a633f54423d74ba3918eca421dad7d3c)](https://www.codacy.com/app/ravan/xlr-ansible-tower-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-ansible-tower-plugin&amp;utm_campaign=Badge_Grade)
+
+## Preface
+
+This document describes the functionality provided by the XL Release Ansible Tower plugin.
+
+ 
+See the [XL Release reference manual](https://docs.xebialabs.com/xl-release) for background information on XL Release and release automation concepts.  
 
 ## Overview
 This plugin enables Ansible Tower job execution from XL Release.
@@ -17,14 +24,14 @@ This plugin enables Ansible Tower job execution from XL Release.
 The plugin JAR file can be downloaded from [releases](https://github.com/xebialabs-community/xld-ansible-tower-plugin/releases).
 Copy the downloaded JAR into the `SERVER_HOME/plugins` directory of XL Release.
 
-# Usage
+## Usage
 
-## Ansible Tower Server 
+### Ansible Tower Server 
 
 Define the url, username and password for the Ansible Tower Server in the XL Release shared configuration section.
 ![AnsibleTowerCfg](images/tower_cfg.png)
 
-## Launch Job Task
+### Launch Job Task
 
 ![AnsibleTowerLaunchJob](images/launch_job.png)
 
