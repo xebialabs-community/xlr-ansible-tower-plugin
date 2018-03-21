@@ -18,13 +18,14 @@ def process(task_vars):
         if task_vars['inventory']:
             inventory = task_vars['inventory']
         try:
-            print("\n", "```")  # started markdown code block
+            print("\n```")  # started markdown code block
             extraVars = task_vars['extraVars']
             if task_vars['inventory']:
-                extraVars.append("inventory=%s" % task_vars['inventory'])
+                extraVars.append(u"inventory: %s" % task_vars['inventory'])
             if task_vars['credential']:
-                extraVars.append("credential=%s" % task_vars['credential'])
-            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], extra_vars=extraVars)
+                extraVars.append(u"credential: %s" % task_vars['credential'])
+            preparedExtraVars = map(lambda v: v.replace(taskPasswordToken, taskPassword),extraVars)
+            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], extra_vars=preparedExtraVars)
         finally:
             print("```\n")  # end markdown code block
 
