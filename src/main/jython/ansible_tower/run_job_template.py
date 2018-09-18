@@ -12,6 +12,18 @@ from tower_cli import get_resource
 from ansible_tower.connect_util import session
 
 
+def get_resource_id(resource, name_or_id):
+    if name_or_id.isdigit():
+        return int(name_or_id)
+    result = resource.list(name=name_or_id)
+    count = int(result['count'])
+    if count == 0:
+        raise Exception("Resource name '%s''%s' not found " % (resource, name_or_id))
+    if count > 1:
+        raise Exception("Too many result for resource name '%s''%s' not found " % (resource, name_or_id))
+    return int(result['results'][0]['id'])
+
+
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
@@ -19,12 +31,14 @@ def process(task_vars):
         try:
             k_vars = {}
             if task_vars['inventory']:
-                print("* set inventory : {0}".format(task_vars['inventory']))
-                k_vars['inventory'] = task_vars['inventory']
+                result = get_resource_id(get_resource('inventory'), task_vars['inventory'])
+                print("* set inventory : {0}->{1}".format(task_vars['inventory'], result))
+                k_vars['inventory'] = result
 
             if task_vars['credential']:
-                print("* set credentials : {0}".format(task_vars['credential']))
-                k_vars['credential'] = task_vars['credential']
+                result = get_resource_id(get_resource('credential'), task_vars['credential'])
+                print("* set credentials : {0}->{1}".format(task_vars['credential'], result))
+                k_vars['credential'] = result
 
             if task_vars['extraVars']:
                 print("* set extra_vars : {0}".format(task_vars['extraVars']))
