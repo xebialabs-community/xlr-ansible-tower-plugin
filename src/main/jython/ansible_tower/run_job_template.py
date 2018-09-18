@@ -15,24 +15,30 @@ from ansible_tower.connect_util import session
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
-        inventory = None
-        if task_vars['inventory']:
-            inventory = task_vars['inventory']
+
         try:
-            print("\n```")  # started markdown code block
-            extraVars = task_vars['extraVars']
+            k_vars = {}
             if task_vars['inventory']:
-                extraVars.append(u"inventory: %s" % task_vars['inventory'])
+                print("* set inventory : {0}".format(task_vars['inventory']))
+                k_vars['inventory'] = task_vars['inventory']
+
             if task_vars['credential']:
-                extraVars.append(u"credential: %s" % task_vars['credential'])
-            prepared_extra_vars = map(lambda v: v.replace(taskPasswordToken, taskPassword), extraVars)
-            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'],
-                             extra_vars=prepared_extra_vars)
+                print("* set credentials : {0}".format(task_vars['credential']))
+                k_vars['credential'] = task_vars['credential']
+
+            if task_vars['extraVars']:
+                print("* set extra_vars : {0}".format(task_vars['extraVars']))
+                k_vars['extra_vars'] = map(lambda v: v.replace(taskPasswordToken, taskPassword), task_vars['extraVars'])
+
+            print("\n```")  # started markdown code block
+            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
+
         finally:
             print("```\n")  # end markdown code block
 
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
+        print('6')
         print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         if task_vars['stopOnFailure'] and not res['status'] == 'successful':
             raise Exception("Failed with status %s" % res['status'])
