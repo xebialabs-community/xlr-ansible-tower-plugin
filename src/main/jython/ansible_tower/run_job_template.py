@@ -11,6 +11,7 @@
 from tower_cli import get_resource
 from ansible_tower.connect_util import session
 
+
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
@@ -24,8 +25,9 @@ def process(task_vars):
                 extraVars.append(u"inventory: %s" % task_vars['inventory'])
             if task_vars['credential']:
                 extraVars.append(u"credential: %s" % task_vars['credential'])
-            preparedExtraVars = map(lambda v: v.replace(taskPasswordToken, taskPassword),extraVars)
-            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], extra_vars=preparedExtraVars)
+            prepared_extra_vars = map(lambda v: v.replace(taskPasswordToken, taskPassword), extraVars)
+            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'],
+                             extra_vars=prepared_extra_vars)
         finally:
             print("```\n")  # end markdown code block
 
@@ -34,6 +36,7 @@ def process(task_vars):
         print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         if task_vars['stopOnFailure'] and not res['status'] == 'successful':
             raise Exception("Failed with status %s" % res['status'])
+
 
 if __name__ == '__main__' or __name__ == '__builtin__':
     process(locals())
