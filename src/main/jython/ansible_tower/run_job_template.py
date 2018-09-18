@@ -38,8 +38,9 @@ def process(task_vars):
 
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
-        print('6')
+
         print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
+
         if task_vars['stopOnFailure'] and not res['status'] == 'successful':
             raise Exception("Failed with status %s" % res['status'])
 
