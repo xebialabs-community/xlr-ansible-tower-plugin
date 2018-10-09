@@ -37,10 +37,12 @@
                   description="The inventory name of a integer value for the foreign key of an inventory to use in this job run"/>
         <property name="credential" category="input" kind="string" required="false"
                   description="The credential name or a integer value for the foreign key of a credential to use in this job run"/>
-        <property name="extraVars" category="input" required="false" kind="list_of_string" size="large"
+        <property name="extraVars" category="input" required="false" kind="list_of_string" size="large" hidden="true"
                   description="yaml formatted texts that contains extra variables to pass on."/>
-        <property name="taskPasswordToken" required="false" category="input"/>
-        <property name="taskPassword" required="false" password="true" category="input"/>
+        <property label="Extra Vars" name="extraVars2" category="input" required="false" kind="string" size="large"
+                  description="a single yaml formatted text that contains extra variables to pass on."/>
+        <property name="taskPasswordToken" required="false" category="input" hidden="true"/>
+        <property name="taskPassword" required="false" password="true" category="input" hidden="true"/>
         <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true"
                   description="Wait for successful completion or fail."/>
         <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true"

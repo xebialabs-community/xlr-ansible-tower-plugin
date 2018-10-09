@@ -40,15 +40,19 @@ def process(task_vars):
                 print("* set credentials : {0}->{1}".format(task_vars['credential'], result))
                 k_vars['credential'] = result
 
-            if task_vars['extraVars']:
-                print("* set extra_vars : {0}".format(task_vars['extraVars']))
-                k_vars['extra_vars'] = map(lambda v: v.replace(taskPasswordToken, taskPassword), task_vars['extraVars'])
+            if task_vars['extraVars2']:
+                vars_ = str(task_vars['extraVars2'])
+                print("* set extra_vars : {0}".format(vars_))
+                # TODO: manage taskPasswordToken && taskPassword
+                k_vars['extra_vars'] = [vars_]
 
-            print("\n```")  # started markdown code block
+            print("\n")
+            print("```")  # started markdown code block
             res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
 
         finally:
-            print("```\n")  # end markdown code block
+            print("```")
+            print("\n")  # end markdown code block
 
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
