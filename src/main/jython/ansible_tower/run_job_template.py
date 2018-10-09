@@ -43,7 +43,7 @@ def process(task_vars):
             if task_vars['extraVars2']:
                 vars_ = str(task_vars['extraVars2'])
                 print("* set extra_vars : {0}".format(vars_))
-                # TODO: manage taskPasswordToken && taskPassword
+                # TODO: manage taskPasswordToken && taskPassword (turn hidden in waiting for...)
                 k_vars['extra_vars'] = [vars_]
 
             print("\n")
