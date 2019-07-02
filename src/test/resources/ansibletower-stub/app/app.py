@@ -18,7 +18,7 @@ import os, io, json
 app = Flask(__name__)
 
 def getFile( fileName, status="200" ):
-     filePath = "/at-stub/responses/%s" % fileName
+     filePath = "/ansible-stub/responses/%s" % fileName
      if not os.path.isfile(filePath):
         raise AuthError({"code": "response_file_not_found", "description": "Unable to load response file"}, 500)
 
