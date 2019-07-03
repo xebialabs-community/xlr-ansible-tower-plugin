@@ -16,6 +16,8 @@
 
     <type type="ansible.Tower" extends="configuration.HttpConnection">
         <property name="checkConfigurationPath" hidden="true" default="/api/"/>
+        <property name="scriptLocation" hidden="true" default="configuration/HttpConnectionCheck.py"/>
+        <property name="checkConfigurationContentType" hidden="true" default="application/json"/>
     </type>
 
     <type type="ansible.TowerTask" extends="xlrelease.PythonScript" virtual="true">
