@@ -46,19 +46,31 @@ def requires_auth(f):
 def index():
     return "Hello, World!"
 
-@app.route('/api/v2/inventory_updates/<id>', methods=['GET'])
+@app.route('/api/v2/inventory_updates/<id>/', methods=['GET'])
 @requires_auth
 def getInventoryUpdate(id):
     return getFile("inventory-sync-%s.json" % id)
 
-@app.route('/api/v2/inventory_updates/<id>/stdout', methods=['GET'])
+@app.route('/api/v2/inventory_updates/<id>/stdout/', methods=['GET'])
 @requires_auth
 def getInventoryUpdateStdout(id):
     return getFile("inventory-sync-stdout-%s.json" % id)
 
-@app.route('/api/v2/inventory_sources/<inventory_source_id>/update/', methods=['POST'])
+@app.route('/api/v2/inventory_sources/<inventory_source_id>/', methods=['GET'])
+@requires_auth
+def getInventorySource(inventory_source_id):
+    resp = make_response( ("{ \"inventory\": \"1337\"}", 200) )
+    resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return resp
+
+@app.route('/api/v2/inventory_sources/<inventory_source_id>/update/', methods=['GET', 'POST'])
 @requires_auth
 def startSync(inventory_source_id):
+    if request.method == 'GET':
+        resp = make_response( ("{ \"can_update\": \"true\"}", 200) )
+        resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+        return resp
+
     app.logger.info("startSync for inventory source %s" % inventory_source_id)
 
     resp = make_response((getFile("inventory-sync-update-%s.json" % inventory_source_id), 202))
