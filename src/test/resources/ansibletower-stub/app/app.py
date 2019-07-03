@@ -54,6 +54,7 @@ def getInventoryUpdate(id):
 @app.route('/api/v2/inventory_updates/<id>/stdout/', methods=['GET'])
 @requires_auth
 def getInventoryUpdateStdout(id):
+    # note: currently the 'content' field on these json files is base64 encoded, as that is how the CLI requests it
     return getFile("inventory-sync-stdout-%s.json" % id)
 
 @app.route('/api/v2/inventory_sources/<inventory_source_id>/', methods=['GET'])

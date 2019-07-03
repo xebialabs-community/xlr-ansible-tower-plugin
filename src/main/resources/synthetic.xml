@@ -30,6 +30,7 @@
 
     <type type="ansible.LaunchJob" extends="ansible.TowerTask">
         <property name="scriptLocation" hidden="true" default="ansible_tower/run_job_template.py"/>
+
         <!-- input params -->
         <property name="jobTemplate" category="input" required="true"
                   description="Primary key or name of the job template to launch new job."/>
@@ -47,11 +48,24 @@
                   description="Wait for successful completion or fail."/>
         <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true"
                   description="Fail task when job fails"/>
+
         <!-- output params -->
         <property name="jobId" category="output"/>
         <property name="jobStatus" category="output"/>
 
         <property name="jobTemplateId" category="input" kind="integer" required="true" hidden="true" default="9999"/>
+    </type>
+
+    <type type="ansible.SynchronizeInventory" extends="ansible.TowerTask">
+        <property name="scriptLocation" hidden="true" default="ansible_tower/run_inventory_update.py"/>
+
+        <!-- input params -->
+        <property name="inventorySource" category="input" kind="integer" required="true" description="The integer key of the inventory source to update"/>
+        <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true" description="Wait for successful completion or fail."/>
+        <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true" description="Fail task when job fails"/>
+
+        <!-- output params -->
+        <property name="jobStatus" category="output"/>
     </type>
 
     <type type="ansible.LaunchJobTemplate" extends="ansible.LaunchJob"/>
