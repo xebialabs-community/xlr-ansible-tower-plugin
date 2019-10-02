@@ -8,24 +8,3 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-version: '3'
-services:
-  xlr:
-    image: xebialabs/xl-release:8.5
-    volumes:
-      - ~/xl-licenses/xl-release-license.lic:/opt/xebialabs/xl-release-server/conf/xl-release-license.lic
-      - ./../../../../build/libs/:/opt/xebialabs/xl-release-server/default-plugins/__local__/
-      - ./../../../../build/reports/tests/log/:/opt/xebialabs/xl-release-server/log/
-    environment:
-      ADMIN_PASSWORD: "admin"
-    ports:
-      - "15516:5516"
-    links:
-      - ansibletower-stub
-
-  ansibletower-stub:
-    build: ../ansibletower-stub
-    ports:
-      - "5099:5000"
-    volumes:
-      - ./../ansibletower-stub/app/:/ansibletower-stub/

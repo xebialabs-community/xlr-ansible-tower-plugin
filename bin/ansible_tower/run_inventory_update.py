@@ -8,24 +8,26 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-version: '3'
-services:
-  xlr:
-    image: xebialabs/xl-release:8.5
-    volumes:
-      - ~/xl-licenses/xl-release-license.lic:/opt/xebialabs/xl-release-server/conf/xl-release-license.lic
-      - ./../../../../build/libs/:/opt/xebialabs/xl-release-server/default-plugins/__local__/
-      - ./../../../../build/reports/tests/log/:/opt/xebialabs/xl-release-server/log/
-    environment:
-      ADMIN_PASSWORD: "admin"
-    ports:
-      - "15516:5516"
-    links:
-      - ansibletower-stub
+from tower_cli import get_resource
+from tower_cli import exceptions
+from ansible_tower.connect_util import session
 
-  ansibletower-stub:
-    build: ../ansibletower-stub
-    ports:
-      - "5099:5000"
-    volumes:
-      - ./../ansibletower-stub/app/:/ansibletower-stub/
+def process(task_vars):
+    with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
+        
+        towerInventorySource = get_resource('inventory_source')
+        
+        print("```")  # started markdown code block
+        try:
+            res = towerInventorySource.update(inventory_source=task_vars['inventorySource'], monitor=task_vars['waitTillComplete'])
+        except exceptions.JobFailure as e:
+            if task_vars['stopOnFailure']: 
+                raise Exception("Job failed.")
+            else:
+                print("Job failed, obeying option to continue with release.")
+        finally: 
+            print("```")
+            print("\n")  # end markdown code block
+
+if __name__ == '__main__' or __name__ == '__builtin__':
+    process(locals())

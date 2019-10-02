@@ -1,7 +1,6 @@
 plugins {
     id "com.github.hierynomus.license" version "0.14.0"
     id "com.github.hierynomus.jython" version "0.8.0"
-    id "com.xebialabs.xl.docker" version "1.1.0"
     id "nebula.release" version "6.0.0"
     id "java"
 }
@@ -11,21 +10,6 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'maven'
 
-
-xlDocker {
-  compileImage = 'xebialabsunsupported/xlr_dev_compile'
-  compileVersion = 'latest'
-  runImage = 'xebialabsunsupported/xlr_dev_run'
-  runVersion = 'latest'
-  runPortMapping = '15516:5516'
-}
-
-repositories {
-    mavenCentral()
-}
-
-defaultTasks 'build'
-
 if (!project.hasProperty('release.scope')) {
   project.ext['release.scope'] = 'patch'
 }
@@ -34,6 +18,12 @@ if (!project.hasProperty('release.useLastTag')) {
   project.ext['release.useLastTag'] = true
 }
 
+repositories {
+    mavenCentral()
+}
+
+defaultTasks 'build'
+
 sourceSets.main.resources.srcDirs += ["src/main/jython"]
 sourceSets.main.resources.srcDirs += ["src/main/resources"]
 sourceSets.test.resources.srcDirs += ["src/test/jython"]
@@ -41,6 +31,14 @@ sourceSets.test.resources.srcDirs += ["src/test/resources"]
 
 dependencies {
     compile 'de.schlichtherle.truezip:truezip-file:7.7.10'
+    
+    testCompile "junit:junit:4.11"
+    testCompile "com.googlecode.json-simple:json-simple:1.1.1"
+    testCompile "org.assertj:assertj-core:3.6.2"
+    testCompile "io.rest-assured:rest-assured:3.2.0"
+    testCompile "org.testcontainers:testcontainers:1.12.0"
+//    testCompile "org.skyscreamer:jsonassert:1.5.0"
+
     jython ":ansible-tower-cli:3.2.1:tower_cli"
     jython ":click:6.7"
     jython ":colorama:0.3.9"
@@ -69,12 +67,37 @@ task runTest(type: Exec, dependsOn: ['testClasses']) {
     workingDir = "$projectDir/src/test/jython"
 }
 
-task itests(type: Exec, dependsOn: ['testClasses']) {
-    logger.info("{$sourceSets.test.runtimeClasspath.asPath}")
-    environment = ["itest_conf_file": "$projectDir/itest-conf.json", "PATH": System.getenv("PATH"), "HOME": System.getenv("HOME")]
-    commandLine jythonInterpreter, "-Dpython.path={$sourceSets.test.runtimeClasspath.asPath}:{$sourceSets.main.runtimeClasspath.asPath}", "-m", "unittest", "discover", "-s", "./src/test/jython", "-p", "*_test.py", "-v"
-    workingDir = projectDir
+test {
+    // Auto detected Unit tests only, exclude the end to end integration test
+    exclude '**/*IntegrationTest.class'
+    
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
 }
+
+task itest(type: Test, dependsOn: ['test']) {
+    // do not automatically scan for tests
+    scanForTestClasses = false 
+    // explicitly include the integration test
+    include '**/*IntegrationTest.class'
+    // To run tests - 
+    // 1. Docker  and Docker Compose must be installed 
+    // 2. The XL-Release image expects to find a valid XL-Release license here: ~/xl-licenses/xl-release-license.lic
+    // 3. To run the test - ./gradlew clean integrationTest
+    //   The test will set up a temporary xlr/mockserver testbed using docker. The mockserver
+    //   will serve up the property or yaml files
+    // After testing is complete, the test docker containers are stopped and removed. 
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+}
+
+// task itests(type: Exec, dependsOn: ['testClasses']) {
+//     logger.info("{$sourceSets.test.runtimeClasspath.asPath}")
+//     environment = ["itest_conf_file": "$projectDir/itest-conf.json", "PATH": System.getenv("PATH"), "HOME": System.getenv("HOME")]
+//     commandLine jythonInterpreter, "-Dpython.path={$sourceSets.test.runtimeClasspath.asPath}:{$sourceSets.main.runtimeClasspath.asPath}", "-m", "unittest", "discover", "-s", "./src/test/jython", "-p", "*_test.py", "-v"
+//     workingDir = projectDir
+// }
 
 license {
     header rootProject.file('License.md')
@@ -84,4 +107,3 @@ license {
     ext.year = Calendar.getInstance().get(Calendar.YEAR)
     ext.name = 'XEBIALABS'
 }
-
