@@ -17,13 +17,13 @@ wget --http-user=admin --http-password=admin --auth-no-challenge \
      --header="Accept: application/json" \
      --header="Content-type: application/json" \
      --post-file=$SCRIPTPATH/data/server-configs.json \
-    http://localhost:5516/api/v1/config -O /dev/null
+    http://localhost:15516/api/v1/config -O /dev/null
 
 ####################### XLR server data
 echo "Load Template"
 
-#wget --http-user=admin --http-password=admin --auth-no-challenge \
-#     --header="Accept: application/json" \
-#     --header="Content-type: application/json" \
-#     --post-file=$SCRIPTPATH/data/release-template.json \
-#    http://localhost:5516/api/v1/templates/import -O /dev/null
+wget --http-user=admin --http-password=admin --auth-no-challenge \
+     --header="Accept: application/json" \
+     --header="Content-type: application/json" \
+     --post-file=$SCRIPTPATH/data/release-template.json \
+    http://localhost:15516/api/v1/templates/import -O /dev/null

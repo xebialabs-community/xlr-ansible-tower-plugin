@@ -1,0 +1,122 @@
+[{
+  "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef",
+  "type": "xlrelease.Release",
+  "title": "Ansible Test",
+  "scheduledStartDate": "2019-09-06T16:00:00Z",
+  "flagStatus": "OK",
+  "overdueNotified": false,
+  "maxConcurrentReleases": 100,
+  "releaseTriggers": [],
+  "teams": [
+    {
+      "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Team44828056852a423b916be8b786a400b7",
+      "type": "xlrelease.Team",
+      "teamName": "Template Owner",
+      "members": [
+        "admin"
+      ],
+      "roles": [],
+      "permissions": [
+        "template#edit",
+        "template#lock_task",
+        "template#view",
+        "template#edit_triggers",
+        "template#edit_precondition",
+        "template#edit_security",
+        "template#create_release",
+        "template#edit_failure_handler"
+      ]
+    },
+    {
+      "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Teamc17fac3349e245a0875009e0733842e3",
+      "type": "xlrelease.Team",
+      "teamName": "Release Admin",
+      "members": [],
+      "roles": [],
+      "permissions": [
+        "release#edit_precondition",
+        "release#edit",
+        "release#reassign_task",
+        "release#edit_security",
+        "release#view",
+        "release#lock_task",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "release#abort",
+        "release#edit_task"
+      ]
+    }
+  ],
+  "memberViewers": [
+    "admin"
+  ],
+  "roleViewers": [],
+  "attachments": [],
+  "phases": [
+    {
+      "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+      "type": "xlrelease.Phase",
+      "title": "New Phase",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "tasks": [
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b",
+          "type": "xlrelease.CustomScriptTask",
+          "title": "Launch Job",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [],
+          "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {},
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "watchers": [],
+          "pythonScript": {
+            "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b/PythonScript",
+            "type": "ansible.LaunchJob",
+            "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b",
+            "tower_server": "Configuration/Custom/ansibletower-stub",
+            "jobTemplate": "test",
+            "waitTillComplete": true,
+            "stopOnFailure": true
+          },
+          "keepPreviousOutputPropertiesOnRetry": false
+        }
+      ],
+      "release": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef",
+      "status": "PLANNED"
+    }
+  ],
+  "queryableStartDate": "2019-09-06T16:00:00Z",
+  "realFlagStatus": "OK",
+  "status": "TEMPLATE",
+  "tags": [],
+  "variables": [],
+  "calendarPublished": false,
+  "tutorial": false,
+  "abortOnFailure": false,
+  "allowConcurrentReleasesFromTrigger": true,
+  "runningTriggeredReleasesCount": 0,
+  "createdFromTrigger": false,
+  "extensions": [],
+  "autoStart": false,
+  "automatedResumeCount": 0,
+  "riskScore": "000",
+  "totalRiskScore": "0000",
+  "riskProfile": "Configuration/riskProfiles/Default risk profile"
+}]

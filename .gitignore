@@ -12,3 +12,15 @@ gradle.properties
 itest-conf.json
 xl-release-*-server/
 deploy_key
+.project
+.DS_Store
+.pydevproject
+.settings
+.vscode
+temp/
+*.iml
+*.ipr
+*.iws
+*.pyc
+*.log
+.classpath

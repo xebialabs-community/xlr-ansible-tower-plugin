@@ -75,7 +75,7 @@ test {
     testLogging.showStandardStreams = true
 }
 
-task itest(type: Test, dependsOn: ['test']) {
+task itest(type: Test, dependsOn: ['build','test']) {
     // do not automatically scan for tests
     scanForTestClasses = false 
     // explicitly include the integration test
