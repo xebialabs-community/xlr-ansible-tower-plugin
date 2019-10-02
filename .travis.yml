@@ -1,15 +1,32 @@
 language: java
+jdk: openjdk8
+script: "./gradlew build"
+before_install:
+  - openssl aes-256-cbc -K $encrypted_7425e1aff743_key -iv $encrypted_7425e1aff743_iv
+    -in deploy_key.enc -out /tmp/deploy_key -d
+  - eval "$(ssh-agent -s)"
+  - echo -e "Host $DIST_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - chmod 600 /tmp/deploy_key
+  - ssh-add /tmp/deploy_key
 deploy:
-  provider: releases
-  api_key:
-    secure: RP33BPhIpB2EO1yrkLrPdTxtwUW8es88YTbH94G2wD+AQCxAURb/LRUfggLnDsBekpb8jfqTVudu5Vo2KIeHJwklQAZ/GB6tZfq5KwX3Vr0Pwq4o4ShxPfCrWbuzAU1S6xKc6P6HI+8BLeAzkKt8L+IkpDQO7GG+6hUr7YCRtGv0/cBGNFAIBuvClMFkot3D0fc7sVgYFwFxYWF6VHf7M9/f5pMrsGoeL3rBgliYi9Y/kaRCAvP9SmRw9T16xXgNZV6WYusiRN5ARkIZqLzsXLcIbqNgHckgvZ/osuAPCm9uOslTXRV7k5Ai9vbUzYSAWcufXBdHukD+FIHFJyDJDxcPXjFGvH6kjkCql45HpQi3XmZkARl+3DtfGcRRoiRZARKV5rFV2W0K6RyMvHJVE1EF1LOHB6qh3/pBBCASIX14apv0MDSIAdaTs95XDieojncAWKf2FTCQkmuAu2PNT8+c5jjnGYsX4VnxtnnVrewcRdpZnk6Bps7gxiHd1UU31lTh21A4acFMmJPsOUg9xwoFpodqvEbg5TKlXbQYIJRkXg01VnT9gUM6H/RI0OwgTma8TYRs+lBpTqpZ7xiNnSpBYJh5e8sxE9FcdVrxcw9ExJmA/NZOc7iAgQSfjfpnKIq8JDE6GDFD2qzzwiGXHorAaC3n3KQEO2jl6pCok2g=
-  file_glob: true
-  file: build/libs/*
-  skip_cleanup: true
-  on:
+  - provider: releases
+    api_key:
+      secure: RP33BPhIpB2EO1yrkLrPdTxtwUW8es88YTbH94G2wD+AQCxAURb/LRUfggLnDsBekpb8jfqTVudu5Vo2KIeHJwklQAZ/GB6tZfq5KwX3Vr0Pwq4o4ShxPfCrWbuzAU1S6xKc6P6HI+8BLeAzkKt8L+IkpDQO7GG+6hUr7YCRtGv0/cBGNFAIBuvClMFkot3D0fc7sVgYFwFxYWF6VHf7M9/f5pMrsGoeL3rBgliYi9Y/kaRCAvP9SmRw9T16xXgNZV6WYusiRN5ARkIZqLzsXLcIbqNgHckgvZ/osuAPCm9uOslTXRV7k5Ai9vbUzYSAWcufXBdHukD+FIHFJyDJDxcPXjFGvH6kjkCql45HpQi3XmZkARl+3DtfGcRRoiRZARKV5rFV2W0K6RyMvHJVE1EF1LOHB6qh3/pBBCASIX14apv0MDSIAdaTs95XDieojncAWKf2FTCQkmuAu2PNT8+c5jjnGYsX4VnxtnnVrewcRdpZnk6Bps7gxiHd1UU31lTh21A4acFMmJPsOUg9xwoFpodqvEbg5TKlXbQYIJRkXg01VnT9gUM6H/RI0OwgTma8TYRs+lBpTqpZ7xiNnSpBYJh5e8sxE9FcdVrxcw9ExJmA/NZOc7iAgQSfjfpnKIq8JDE6GDFD2qzzwiGXHorAaC3n3KQEO2jl6pCok2g=
+    file_glob: true
+    file: build/libs/*
+    skip_cleanup: true
+    on:
     all_branches: true
     tags: true
     repo: xebialabs-community/xlr-ansible-tower-plugin
+  - provider: script
+    skip_cleanup: true
+    script: rsync --update -raz -i $TRAVIS_BUILD_DIR/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
+    on:
+      all_branches: true
+      tags: true
+      repo: xebialabs-community/xlr-ansible-tower-plugin
 notifications:
   slack:
     secure: ReOd/zfh/d2p6wwkbt8nT4+ov4OTYUYfPrGgqsJcht5dubwYexlj9VJ9dgcEJEMWYYgZJDtR4oc+toDbZZwMloaWBl86uLgx0pSAtAiaJuXvN9QlFtVr2HTKzBWxaoPRXn0Nyq/SMtmtAj/sI9w8anr39HuXpAsvhBCSO/lGn1vNr/hS71JUl9yjHuTH1biIaTT2oC/TSWpkD6RMl0HvKLEwOH7S98PYhafsyJvUDLh4m9H+IbZhYhPBH5S9ZhjHKEVRGh7uZa6BFqBtg2GOAOtn8WdgetIS5OTyAxDWFoJjGPl7emXKQDqApuURg16YWIwqnURJ3a6MArbHRIGLlPgBDhIctINYEwWoZo/Zg0DT2tKtaJR5UU1aIbApLJC9WCPAXUNyKtVWi1l76+sdu3fl0WqBEh5yaHYodpvQru+teuBevxU4BzBI699z5pZmoGzmcqRMIdBWRXeSI+swnoq4yiAsIRX23xFfeewekxaQR5uNzSK5Aa9R3iqB7r36XiE50ABu1YAa7JoJ9mjFGiNZrbqtJbr3egHIxm2YKaU7dGSuZhNGdSKTHCyf+nr1MRNkDlAxLucEs4IoLBXTl1x+eDYkejPFMfAXEU14FE6HL5I9aZGeK2SFhsIKZavEYxRzRZz6DX0XS6SM0kQ+v09NQceGhgfegeXXITmUIP4=
+
