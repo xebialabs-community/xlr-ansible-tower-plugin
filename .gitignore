@@ -3,6 +3,7 @@
 .gradle
 .idea
 build
+bin
 supervisord.*
 out
 *$py.class

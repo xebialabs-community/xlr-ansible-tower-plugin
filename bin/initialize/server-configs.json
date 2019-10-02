@@ -1,8 +1,0 @@
-{
-  "id":"unused",
-  "type":"ansible.Tower",
-  "title":"ansibletower-stub",
-  "url":"http://ansibletower-stub:5000",
-  "username": "admin",
-  "password": "admin"
-}
