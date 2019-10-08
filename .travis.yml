@@ -13,7 +13,7 @@ deploy:
     api_key:
       secure: RP33BPhIpB2EO1yrkLrPdTxtwUW8es88YTbH94G2wD+AQCxAURb/LRUfggLnDsBekpb8jfqTVudu5Vo2KIeHJwklQAZ/GB6tZfq5KwX3Vr0Pwq4o4ShxPfCrWbuzAU1S6xKc6P6HI+8BLeAzkKt8L+IkpDQO7GG+6hUr7YCRtGv0/cBGNFAIBuvClMFkot3D0fc7sVgYFwFxYWF6VHf7M9/f5pMrsGoeL3rBgliYi9Y/kaRCAvP9SmRw9T16xXgNZV6WYusiRN5ARkIZqLzsXLcIbqNgHckgvZ/osuAPCm9uOslTXRV7k5Ai9vbUzYSAWcufXBdHukD+FIHFJyDJDxcPXjFGvH6kjkCql45HpQi3XmZkARl+3DtfGcRRoiRZARKV5rFV2W0K6RyMvHJVE1EF1LOHB6qh3/pBBCASIX14apv0MDSIAdaTs95XDieojncAWKf2FTCQkmuAu2PNT8+c5jjnGYsX4VnxtnnVrewcRdpZnk6Bps7gxiHd1UU31lTh21A4acFMmJPsOUg9xwoFpodqvEbg5TKlXbQYIJRkXg01VnT9gUM6H/RI0OwgTma8TYRs+lBpTqpZ7xiNnSpBYJh5e8sxE9FcdVrxcw9ExJmA/NZOc7iAgQSfjfpnKIq8JDE6GDFD2qzzwiGXHorAaC3n3KQEO2jl6pCok2g=
     file_glob: true
-    file: build/libs/*.jar
+    file: build/libs/*
     skip_cleanup: true
     on:
       all_branches: true
@@ -21,10 +21,10 @@ deploy:
       repo: xebialabs-community/xlr-ansible-tower-plugin
   - provider: script
     skip_cleanup: true
-    script: rsync --update -raz -i $TRAVIS_BUILD_DIR/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
+    script: rsync --update -raz -i $TRAVIS_BUILD_DIR/build/libs/*.jar $DIST_USER@$DIST_HOST:$DIST_PATH/${TRAVIS_REPO_SLUG#*/}/
     on:
       all_branches: true
-      tags: true
+#      tags: true
       repo: xebialabs-community/xlr-ansible-tower-plugin
 notifications:
   slack:
