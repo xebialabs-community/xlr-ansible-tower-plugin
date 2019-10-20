@@ -1,0 +1,9 @@
+{
+    "${jobTemplateId}": "4",
+    "${sync37}": "successful",
+    "${launchJobStatus}": "successful",
+    "${sync38StopOnFail}": "",
+    "${jobTemplateStatus}": "successful",
+    "${sync38}": "failed",
+    "${launchJobId}": "4"
+}

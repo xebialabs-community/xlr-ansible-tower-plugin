@@ -8,20 +8,26 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package integration;
+import static org.junit.Assert.assertTrue;
+
+import integration.util.AnsibleTowerTestHelper;
 import java.io.File;
-
-import com.xebialabs.itest.ITestHelper;
-
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import org.testcontainers.containers.DockerComposeContainer;
 
-public class IntegrationTest
+public class AnsibleTowerIntegrationTest
 {
     private static final String DOCKER_COMPOSE_FNAME = "build/resources/test/docker/docker-compose.yml";
-    private static String IMPORT_CONFIG_FNAME = "build/resources/test/initialize/data/server-configs.json";
-    private static String IMPORT_TEMPLATE_FNAME = "build/resources/test/initialize/data/release-template.json";
+    private static String IMPORT_CONFIG_FNAME = "build/resources/test/docker/initialize/data/server-configs.json";
+    private static String IMPORT_TEMPLATE_FNAME = "build/resources/test/docker/initialize/data/release-template.json";
+    private static String EXPECTED_RESULT_FNAME = "build/resources/test/testExpected/testAnsibleTower.json";
 
     @ClassRule
     public static DockerComposeContainer docker =
@@ -38,15 +44,30 @@ public class IntegrationTest
     @BeforeClass
     public static void setup() throws Exception
     {
-        ITestHelper.initialize();
-        ITestHelper.loadConfig(IMPORT_CONFIG_FNAME);
-        ITestHelper.loadTemplate(IMPORT_TEMPLATE_FNAME);
+        AnsibleTowerTestHelper.initialize();
+        AnsibleTowerTestHelper.loadConfig(IMPORT_CONFIG_FNAME);
+        AnsibleTowerTestHelper.loadTemplate(IMPORT_TEMPLATE_FNAME);
     }
 
     @Test
-    public void launchJobTest()
+    public void testAnsibleTower() throws Exception
     {
-        System.out.println("launchJobTest");
+        JSONObject theResult = AnsibleTowerTestHelper.getAnsibleTowerReleaseResult();
+        //System.out.println("RESULT:\n"+theResult);
+
+        assertTrue(theResult != null);
+
+        // The file, testCherwell, contains the JSONObject we expect to be returned from XLR. Order of variables does not matter
+        String expected = AnsibleTowerTestHelper.readFile(EXPECTED_RESULT_FNAME);
+        try {
+            // This will assert that all pre-exisiting variables are there, have been set to the correct and no variables were add. Order does not matter.
+            JSONAssert.assertEquals(expected, theResult, JSONCompareMode.NON_EXTENSIBLE);
+        } catch (Exception e) {
+            System.out.println("FAILED: EXCEPTION: "+e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("");
+        System.out.println("testAnsibleTower passed");
 
     }
 }

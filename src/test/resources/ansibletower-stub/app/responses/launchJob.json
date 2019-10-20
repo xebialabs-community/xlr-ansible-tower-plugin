@@ -1,0 +1,120 @@
+{
+    "ask_tags_on_launch": false,
+    "job_type": "run",
+    "related": {
+      "extra_credentials": "/api/v2/job_templates/2/extra_credentials/",
+      "notification_templates_error": "/api/v2/job_templates/2/notification_templates_error/",
+      "notification_templates_success": "/api/v2/job_templates/2/notification_templates_success/",
+      "jobs": "/api/v2/job_templates/2/jobs/",
+      "launch": "/api/v2/job_templates/2/launch/",
+      "notification_templates_any": "/api/v2/job_templates/2/notification_templates_any/",
+      "labels": "/api/v2/job_templates/2/labels/",
+      "access_list": "/api/v2/job_templates/2/access_list/",
+      "project": "/api/v2/projects/1/",
+      "instance_groups": "/api/v2/job_templates/2/instance_groups/",
+      "object_roles": "/api/v2/job_templates/2/object_roles/",
+      "inventory": "/api/v2/inventories/1/",
+      "schedules": "/api/v2/job_templates/2/schedules/",
+      "credentials": "/api/v2/job_templates/2/credentials/",
+      "slice_workflow_jobs": "/api/v2/job_templates/2/slice_workflow_jobs/",
+      "copy": "/api/v2/job_templates/2/copy/",
+      "activity_stream": "/api/v2/job_templates/2/activity_stream/",
+      "survey_spec": "/api/v2/job_templates/2/survey_spec/"
+    },
+    "skip_tags": "",
+    "ask_verbosity_on_launch": false,
+    "playbook": "helloworld.yml",
+    "next_job_run": null,
+    "id": 2,
+    "survey_enabled": false,
+    "force_handlers": false,
+    "ask_diff_mode_on_launch": false,
+    "job_tags": "",
+    "summary_fields": {
+      "extra_credentials": [],
+      "user_capabilities": {
+        "edit": false,
+        "start": false,
+        "copy": false,
+        "schedule": false,
+        "delete": false
+      },
+      "object_roles": {
+        "admin_role": {
+          "description": "Can manage all aspects of the job template",
+          "name": "Admin",
+          "id": 23
+        },
+        "execute_role": {
+          "description": "May run the job template",
+          "name": "Execute",
+          "id": 24
+        },
+        "read_role": {
+          "description": "May view settings for the job template",
+          "name": "Read",
+          "id": 25
+        }
+      },
+      "labels": {
+        "count": 0,
+        "results": []
+      },
+      "project": {
+        "status": "missing",
+        "scm_type": "",
+        "description": "test_proj-description",
+        "name": "test_proj",
+        "id": 1
+      },
+      "inventory": {
+        "has_active_failures": false,
+        "has_inventory_sources": false,
+        "description": "",
+        "name": "test_inv",
+        "kind": "",
+        "hosts_with_active_failures": 0,
+        "organization_id": 1,
+        "total_hosts": 0,
+        "inventory_sources_with_failures": 0,
+        "total_inventory_sources": 0,
+        "total_groups": 0,
+        "id": 1,
+        "groups_with_active_failures": 0
+      },
+      "recent_jobs": [],
+      "credentials": []
+    },
+    "created": "2018-02-01T08:00:00.000000Z",
+    "diff_mode": false,
+    "ask_inventory_on_launch": false,
+    "inventory": 1,
+    "forks": 0,
+    "last_job_failed": false,
+    "type": "job_template",
+    "become_enabled": false,
+    "status": "never updated",
+    "credential": null,
+    "description": "",
+    "last_job_run": null,
+    "ask_variables_on_launch": false,
+    "ask_job_type_on_launch": false,
+    "start_at_task": "",
+    "ask_limit_on_launch": false,
+    "vault_credential": null,
+    "custom_virtualenv": null,
+    "host_config_key": "",
+    "job_slice_count": 1,
+    "ask_skip_tags_on_launch": false,
+    "use_fact_cache": false,
+    "name": "jt",
+    "ask_credential_on_launch": false,
+    "url": "/api/v2/job_templates/2/",
+    "extra_vars": "",
+    "verbosity": 0,
+    "allow_simultaneous": false,
+    "modified": "2018-02-01T08:00:00.000000Z",
+    "project": 1,
+    "limit": "",
+    "timeout": 0
+  }

@@ -1,0 +1,325 @@
+[
+    {
+      "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef",
+      "type": "xlrelease.Release",
+      "title": "Ansible Test",
+      "scheduledStartDate": "2019-09-06T16:00:00Z",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "maxConcurrentReleases": 100,
+      "releaseTriggers": [],
+      "teams": [
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Team63afb4bcd6bc4df2834a609010876266",
+          "type": "xlrelease.Team",
+          "teamName": "Release Admin",
+          "members": [],
+          "roles": [],
+          "permissions": [
+            "release#edit_precondition",
+            "release#edit",
+            "release#reassign_task",
+            "release#edit_security",
+            "release#view",
+            "release#lock_task",
+            "release#start",
+            "release#edit_blackout",
+            "template#view",
+            "release#edit_failure_handler",
+            "release#abort",
+            "release#edit_task"
+          ]
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Team8123e78437d640eca7141262baa29495",
+          "type": "xlrelease.Team",
+          "teamName": "Template Owner",
+          "members": [
+            "admin"
+          ],
+          "roles": [],
+          "permissions": [
+            "template#edit",
+            "template#lock_task",
+            "template#view",
+            "template#edit_triggers",
+            "template#edit_precondition",
+            "template#edit_security",
+            "template#create_release",
+            "template#edit_failure_handler"
+          ]
+        }
+      ],
+      "memberViewers": [
+        "admin"
+      ],
+      "roleViewers": [],
+      "attachments": [],
+      "phases": [
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+          "type": "xlrelease.Phase",
+          "title": "New Phase",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "tasks": [
+            {
+              "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b",
+              "type": "xlrelease.CustomScriptTask",
+              "title": "Launch Job",
+              "flagStatus": "OK",
+              "overdueNotified": false,
+              "comments": [],
+              "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+              "facets": [],
+              "attachments": [],
+              "status": "PLANNED",
+              "waitForScheduledStartDate": true,
+              "delayDuringBlackout": false,
+              "postponedDueToBlackout": false,
+              "hasBeenFlagged": false,
+              "hasBeenDelayed": false,
+              "taskFailureHandlerEnabled": false,
+              "failuresCount": 0,
+              "variableMapping": {
+                "pythonScript.jobStatus": "${launchJobStatus}",
+                "pythonScript.jobId": "${launchJobId}"
+              },
+              "tags": [],
+              "dueSoonNotified": false,
+              "locked": false,
+              "checkAttributes": false,
+              "watchers": [],
+              "pythonScript": {
+                "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b/PythonScript",
+                "type": "ansible.LaunchJob",
+                "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task461e64a6337e45b9b340cb6e12337f9b",
+                "tower_server": "Configuration/Custom/ansibletower-stub",
+                "jobTemplate": "2",
+                "waitTillComplete": true,
+                "stopOnFailure": true
+              },
+              "keepPreviousOutputPropertiesOnRetry": false
+            },
+            {
+              "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task3b040df3acc84dd2836bb2e68c985b16",
+              "type": "xlrelease.CustomScriptTask",
+              "title": "sync 37",
+              "flagStatus": "OK",
+              "overdueNotified": false,
+              "comments": [],
+              "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+              "facets": [],
+              "attachments": [],
+              "status": "PLANNED",
+              "waitForScheduledStartDate": true,
+              "delayDuringBlackout": false,
+              "postponedDueToBlackout": false,
+              "hasBeenFlagged": false,
+              "hasBeenDelayed": false,
+              "taskFailureHandlerEnabled": false,
+              "failuresCount": 0,
+              "variableMapping": {
+                "pythonScript.jobStatus": "${sync37}"
+              },
+              "tags": [],
+              "dueSoonNotified": false,
+              "locked": false,
+              "checkAttributes": false,
+              "watchers": [],
+              "pythonScript": {
+                "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task3b040df3acc84dd2836bb2e68c985b16/PythonScript",
+                "type": "ansible.SynchronizeInventory",
+                "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task3b040df3acc84dd2836bb2e68c985b16",
+                "tower_server": "Configuration/Custom/ansibletower-stub",
+                "inventorySource": 37,
+                "waitTillComplete": true,
+                "stopOnFailure": false
+              },
+              "keepPreviousOutputPropertiesOnRetry": false
+            },
+            {
+              "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task2f4f644769c64dd09146e8497653932e",
+              "type": "xlrelease.CustomScriptTask",
+              "title": "sync 38",
+              "flagStatus": "OK",
+              "overdueNotified": false,
+              "comments": [],
+              "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+              "facets": [],
+              "attachments": [],
+              "status": "PLANNED",
+              "waitForScheduledStartDate": true,
+              "delayDuringBlackout": false,
+              "postponedDueToBlackout": false,
+              "hasBeenFlagged": false,
+              "hasBeenDelayed": false,
+              "taskFailureHandlerEnabled": false,
+              "failuresCount": 0,
+              "variableMapping": {
+                "pythonScript.jobStatus": "${sync38}"
+              },
+              "tags": [],
+              "dueSoonNotified": false,
+              "locked": false,
+              "checkAttributes": false,
+              "watchers": [],
+              "pythonScript": {
+                "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task2f4f644769c64dd09146e8497653932e/PythonScript",
+                "type": "ansible.SynchronizeInventory",
+                "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Task2f4f644769c64dd09146e8497653932e",
+                "tower_server": "Configuration/Custom/ansibletower-stub",
+                "inventorySource": 38,
+                "waitTillComplete": true,
+                "stopOnFailure": false
+              },
+              "keepPreviousOutputPropertiesOnRetry": false
+            },
+            {
+              "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskd293590b167d4d818260ce0ac22be260",
+              "type": "xlrelease.CustomScriptTask",
+              "title": "Launch Job Template",
+              "flagStatus": "OK",
+              "overdueNotified": false,
+              "comments": [],
+              "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+              "facets": [],
+              "attachments": [],
+              "status": "PLANNED",
+              "waitForScheduledStartDate": true,
+              "delayDuringBlackout": false,
+              "postponedDueToBlackout": false,
+              "hasBeenFlagged": false,
+              "hasBeenDelayed": false,
+              "taskFailureHandlerEnabled": false,
+              "failuresCount": 0,
+              "variableMapping": {
+                "pythonScript.jobStatus": "${jobTemplateStatus}",
+                "pythonScript.jobId": "${jobTemplateId}"
+              },
+              "tags": [],
+              "dueSoonNotified": false,
+              "locked": false,
+              "checkAttributes": false,
+              "watchers": [],
+              "pythonScript": {
+                "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskd293590b167d4d818260ce0ac22be260/PythonScript",
+                "type": "ansible.LaunchJobTemplate",
+                "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskd293590b167d4d818260ce0ac22be260",
+                "tower_server": "Configuration/Custom/ansibletower-stub",
+                "jobTemplate": "2",
+                "waitTillComplete": true,
+                "stopOnFailure": true
+              },
+              "keepPreviousOutputPropertiesOnRetry": false
+            },
+            {
+              "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskc487d495d527460589cd55e96afb0600",
+              "type": "xlrelease.CustomScriptTask",
+              "title": "sync 38 stop on failure",
+              "flagStatus": "OK",
+              "overdueNotified": false,
+              "comments": [],
+              "container": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b",
+              "facets": [],
+              "attachments": [],
+              "status": "PLANNED",
+              "waitForScheduledStartDate": true,
+              "delayDuringBlackout": false,
+              "postponedDueToBlackout": false,
+              "hasBeenFlagged": false,
+              "hasBeenDelayed": false,
+              "taskFailureHandlerEnabled": false,
+              "failuresCount": 0,
+              "variableMapping": {
+                "pythonScript.jobStatus": "${sync38StopOnFail}"
+              },
+              "tags": [],
+              "dueSoonNotified": false,
+              "locked": false,
+              "checkAttributes": false,
+              "watchers": [],
+              "pythonScript": {
+                "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskc487d495d527460589cd55e96afb0600/PythonScript",
+                "type": "ansible.SynchronizeInventory",
+                "customScriptTask": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Phaseba0d34b28d2442e4896ac9ed3e48740b/Taskc487d495d527460589cd55e96afb0600",
+                "tower_server": "Configuration/Custom/ansibletower-stub",
+                "waitTillComplete": true,
+                "stopOnFailure": true
+              },
+              "keepPreviousOutputPropertiesOnRetry": false
+            }
+          ],
+          "release": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef",
+          "status": "PLANNED"
+        }
+      ],
+      "queryableStartDate": "2019-09-06T16:00:00Z",
+      "realFlagStatus": "OK",
+      "status": "TEMPLATE",
+      "tags": [],
+      "variables": [
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variableae1564eb63ea4534adafac9177d9c84c",
+          "type": "xlrelease.StringVariable",
+          "key": "launchJobId",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variable696c236259b74b17aa610ad670b6719b",
+          "type": "xlrelease.StringVariable",
+          "key": "launchJobStatus",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variable657c3c41b92b470e8414fc98b2edca6f",
+          "type": "xlrelease.StringVariable",
+          "key": "sync37",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variable394c1a43ab904c4fa45578909e457018",
+          "type": "xlrelease.StringVariable",
+          "key": "sync38",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variablee187025d0236464d8c1627eb1fcd493a",
+          "type": "xlrelease.StringVariable",
+          "key": "jobTemplateId",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variable40ec68e9c40f4591b7efd245d93e0636",
+          "type": "xlrelease.StringVariable",
+          "key": "jobTemplateStatus",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        },
+        {
+          "id": "Applications/Releasebc6b57e850474a8999d5c47cb8d2bdef/Variable68f04bd48cb340f398c2443dfebee1ec",
+          "type": "xlrelease.StringVariable",
+          "key": "sync38StopOnFail",
+          "requiresValue": false,
+          "showOnReleaseStart": false
+        }
+      ],
+      "calendarPublished": false,
+      "tutorial": false,
+      "abortOnFailure": false,
+      "allowConcurrentReleasesFromTrigger": true,
+      "runningTriggeredReleasesCount": 0,
+      "createdFromTrigger": false,
+      "extensions": [],
+      "autoStart": false,
+      "automatedResumeCount": 0,
+      "riskScore": "000",
+      "totalRiskScore": "0000",
+      "riskProfile": "Configuration/riskProfiles/Default risk profile"
+    }
+  ]

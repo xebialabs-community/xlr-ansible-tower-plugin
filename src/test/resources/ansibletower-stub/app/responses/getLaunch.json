@@ -1,0 +1,61 @@
+{
+  "credential_needed_to_start": false,
+  "inventory_needed_to_start": false,
+  "ask_diff_mode_on_launch": false,
+  "can_start_without_user_input": false,
+  "ask_credential_on_launch": false,
+  "ask_variables_on_launch": false,
+  "ask_tags_on_launch": false,
+  "ask_job_type_on_launch": false,
+  "ask_limit_on_launch": false,
+  "job_template_data": {
+    "description": "",
+    "name": "deploy-job-template",
+    "id": 2
+  },
+  "ask_inventory_on_launch": false,
+  "ask_verbosity_on_launch": false,
+  "defaults": {
+    "job_tags": "",
+    "extra_vars": "",
+    "verbosity": 0,
+    "job_type": "run",
+    "diff_mode": false,
+    "skip_tags": "",
+    "limit": "",
+    "inventory": {
+      "id": 1,
+      "name": "test-inv"
+    },
+    "credentials": [
+      {
+        "credential_type": 2,
+        "passwords_needed": [
+          "vault_password.abc"
+        ],
+        "vault_id": "abc",
+        "id": 4,
+        "name": "Vault #1"
+      },
+      {
+        "credential_type": 2,
+        "passwords_needed": [
+          "vault_password.xyz"
+        ],
+        "vault_id": "xyz",
+        "id": 5,
+        "name": "Vault #2"
+      },
+      {
+        "credential_type": 3,
+        "passwords_needed": [],
+        "id": 3,
+        "name": "test-cred"
+      }
+    ]
+  },
+  "passwords_needed_to_start": [],
+  "variables_needed_to_start": [],
+  "ask_skip_tags_on_launch": false,
+  "survey_enabled": false
+}

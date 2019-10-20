@@ -20,7 +20,9 @@ def process(task_vars):
         print("```")  # started markdown code block
         try:
             res = towerInventorySource.update(inventory_source=task_vars['inventorySource'], monitor=task_vars['waitTillComplete'])
+            globals()['jobStatus'] = res['status']
         except exceptions.JobFailure as e:
+            globals()['jobStatus'] = "failed"
             if task_vars['stopOnFailure']: 
                 raise Exception("Job failed.")
             else:

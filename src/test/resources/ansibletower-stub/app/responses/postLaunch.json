@@ -1,0 +1,9 @@
+{
+  "ignored_fields": {
+    "credential": 2,
+    "job_tags": "setup,teardown"
+  },
+  "id": 4,
+  "status": "successful",
+  "job": 4
+}
