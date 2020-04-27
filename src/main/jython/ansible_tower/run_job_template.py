@@ -61,7 +61,7 @@ def process(task_vars):
         globals()['jobStatus'] = res['status']
 
         if task_vars['isTemplateWorkflow']:
-            print("* [Job %s Link](%s/#/workflows/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
+            print("* [Job %s Link](%s/#/workflow_jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         else:
             print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
 
