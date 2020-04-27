@@ -27,6 +27,7 @@ def get_resource_id(resource, name_or_id):
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
+        workflow_job = get_resource('workflow_job')
 
         try:
             k_vars = {}
@@ -48,7 +49,13 @@ def process(task_vars):
 
             print("\n")
             print("```")  # started markdown code block
-            res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
+            print(task_vars['jobTemplate'])
+
+            if task_vars['isTemplateWorkflow'] == True:
+                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)   
+            else:
+                res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
+                
 
         finally:
             print("```")

@@ -35,6 +35,9 @@
         <!-- input params -->
         <property name="jobTemplate" category="input" required="true"
                   description="Primary key or name of the job template to launch new job."/>
+        <!-- input params for workflow -->
+        <property name="isTemplateWorkflow" kind="boolean" category="input" required="false" default="false"
+                  description="If job template is a workflow, tick this option."/>
         <property name="inventory" category="input" kind="string" required="false"
                   description="The inventory name of a integer value for the foreign key of an inventory to use in this job run"/>
         <property name="credential" category="input" kind="string" required="false"
