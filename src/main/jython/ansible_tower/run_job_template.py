@@ -11,7 +11,6 @@
 from tower_cli import get_resource
 from ansible_tower.connect_util import session
 
-
 def get_resource_id(resource, name_or_id):
     if name_or_id.isdigit():
         return int(name_or_id)
@@ -22,7 +21,6 @@ def get_resource_id(resource, name_or_id):
     if count > 1:
         raise Exception("Too many result for resource name '%s''%s' not found " % (resource, name_or_id))
     return int(result['results'][0]['id'])
-
 
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
@@ -50,29 +48,25 @@ def process(task_vars):
             print("\n")
             print("```")  # started markdown code block
 
-            if task_vars['isTemplateWorkflow'] == True:
-                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], wait='True', **k_vars)   
+            if task_vars['isTemplateWorkflow']:
+                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'],wait=task_vars['waitTillComplete'], **k_vars)   
             else:
                 res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
-                
 
         finally:
-
             print("```")
             print("\n")  # end markdown code block
 
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
 
-        if task_vars['isTemplateWorkflow'] == True:
+        if task_vars['isTemplateWorkflow']:
             print("* [Job %s Link](%s/#/workflows/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         else:
             print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
 
-
-        if task_vars['stopOnFailure'] and not res['status'] != 'failed':
+        if task_vars['stopOnFailure'] and not res['status'] == 'successful':
             raise Exception("Failed with status %s" % res['status'])
-
 
 if __name__ == '__main__' or __name__ == '__builtin__':
     process(locals())
