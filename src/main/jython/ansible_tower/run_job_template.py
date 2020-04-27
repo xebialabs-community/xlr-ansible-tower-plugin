@@ -49,7 +49,7 @@ def process(task_vars):
             print("```")  # started markdown code block
 
             if task_vars['isTemplateWorkflow']:
-                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'],wait=task_vars['waitTillComplete'], **k_vars)   
+                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'],wait=task_vars['waitTillComplete'], **k_vars)
             else:
                 res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
 
