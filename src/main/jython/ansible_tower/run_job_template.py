@@ -49,24 +49,28 @@ def process(task_vars):
 
             print("\n")
             print("```")  # started markdown code block
-            print(task_vars['jobTemplate'])
 
             if task_vars['isTemplateWorkflow'] == True:
-                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)   
+                res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], wait='True', **k_vars)   
             else:
                 res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
                 
 
         finally:
+
             print("```")
             print("\n")  # end markdown code block
 
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
 
-        print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
+        if task_vars['isTemplateWorkflow'] == True:
+            print("* [Job %s Link](%s/#/workflows/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
+        else:
+            print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
 
-        if task_vars['stopOnFailure'] and not res['status'] == 'successful':
+
+        if task_vars['stopOnFailure'] and not res['status'] != 'failed':
             raise Exception("Failed with status %s" % res['status'])
 
 
