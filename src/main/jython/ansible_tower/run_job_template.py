@@ -25,7 +25,7 @@ def get_resource_id(resource, name_or_id):
 def process(task_vars):
     with session(task_vars['tower_server'], task_vars['username'], task_vars['password']):
         job = get_resource('job')
-        workflow_job = get_resource('workflow_job')
+        workflow_job = get_resource('workflow_job')     # adding the necessary call to start a workflow job as per https://tower-cli.readthedocs.io/en/latest/api_ref/resources/workflow_job.html
 
         try:
             k_vars = {}
@@ -48,7 +48,8 @@ def process(task_vars):
             print("\n")
             print("```")  # started markdown code block
 
-            if task_vars['isTemplateWorkflow']:
+            if task_vars['isTemplateWorkflow']:         # use the synthetic.xml new form checkbox to build a condition to differentiate a standard template job and a workflow template job
+                                                        # not that using monitor here instead of wait will raise an exception.
                 res = workflow_job.launch(workflow_job_template=task_vars['jobTemplate'],wait=task_vars['waitTillComplete'], **k_vars)
             else:
                 res = job.launch(job_template=task_vars['jobTemplate'], monitor=task_vars['waitTillComplete'], **k_vars)
@@ -60,7 +61,7 @@ def process(task_vars):
         globals()['jobId'] = res['id']
         globals()['jobStatus'] = res['status']
 
-        if task_vars['isTemplateWorkflow']:
+        if task_vars['isTemplateWorkflow']:             # use the synthetic.xml new form checkbox to build a condition to differentiate a standard template job and a workflow template job and provide the current job status URL
             print("* [Job %s Link](%s/#/workflow_jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
         else:
             print("* [Job %s Link](%s/#/jobs/%s)" % (res['id'], task_vars['tower_server']['url'], res['id']))
