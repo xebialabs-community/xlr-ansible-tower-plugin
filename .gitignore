@@ -2,8 +2,8 @@
 *.pyc
 .gradle
 .idea
-build
-bin
+build/
+bin/
 supervisord.*
 out
 *$py.class
@@ -11,11 +11,11 @@ out
 gradle.properties
 itest-conf.json
 xl-release-*-server/
-deploy_key
+deploy_key*
 .project
 .DS_Store
 .pydevproject
-.settings
+.settings/
 .vscode
 temp/
 *.iml
@@ -24,3 +24,4 @@ temp/
 *.pyc
 *.log
 .classpath
+
