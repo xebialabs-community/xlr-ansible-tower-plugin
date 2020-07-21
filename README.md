@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin.svg?branch=master)](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a633f54423d74ba3918eca421dad7d3c)](https://www.codacy.com/app/ravan/xlr-ansible-tower-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-ansible-tower-plugin&amp;utm_campaign=Badge_Grade)
 [xlr-ansible-tower-plugin-license-url]
-[![Github All Releases][xlr-ansible-tower-plugin-downloads-image]]()
+[xlr-ansible-tower-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-ansible-tower-plugin/total.svg
 
 ## Preface
 
