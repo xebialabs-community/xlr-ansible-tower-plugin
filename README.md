@@ -1,14 +1,12 @@
 # XL Release Ansible Tower Plugin
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 [![Build Status](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin.svg?branch=master)](https://travis-ci.org/xebialabs-community/xlr-ansible-tower-plugin)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a633f54423d74ba3918eca421dad7d3c)](https://www.codacy.com/app/ravan/xlr-ansible-tower-plugin?
-utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-ansible-tower-plugin&amp;utm_campaign=Badge_Grade)
-[![License: MIT][xlr-ansible-tower-plugin-license-image]][xlr-ansible-tower-plugin-license-url]
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ddff1a3e0c5246df8ab69e126d019690)](https://www.codacy.com/manual/ladamato/xlr-ansible-tower-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-ansible-tower-plugin&amp;utm_campaign=Badge_Grade)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Github All Releases][xlr-ansible-tower-plugin-downloads-image]]()
 
-[xlr-ansible-tower-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
-[xlr-ansible-tower-plugin-license-url]: https://opensource.org/licenses/MIT
+
 [xlr-ansible-tower-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-ansible-tower-plugin/total.svg
 
 ## Preface
