@@ -21,7 +21,7 @@ This plugin enables Ansible Tower job execution from XL Release.
 
 ## Requirements
 
-* XL Release Server 7+
+* XL Release Server 7+, has been tested with 9.7
 * Python requests library as supplied with xlr-xld-plugin
 
 ## Installation
