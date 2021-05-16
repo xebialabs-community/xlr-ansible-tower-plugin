@@ -39,6 +39,11 @@ def process(task_vars):
                 print("* set credentials : {0}->{1}".format(task_vars['credential'], result))
                 k_vars['credential'] = result
 
+            if task_vars['limit']:
+                vars_ = str(task_vars['limit'])
+                print("* set limit : {0}".format(vars_))
+                k_vars['limit'] = vars_
+
             if task_vars['extraVars2']:
                 vars_ = str(task_vars['extraVars2'])
                 print("* set extra_vars : {0}".format(vars_))

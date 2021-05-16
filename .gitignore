@@ -24,4 +24,5 @@ temp/
 *.pyc
 *.log
 .classpath
+.devcontainer
 

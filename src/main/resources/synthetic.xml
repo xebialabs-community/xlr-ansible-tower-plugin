@@ -10,69 +10,59 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
-           xmlns="http://www.xebialabs.com/deployit/synthetic"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <type type="ansible.Tower" extends="configuration.HttpConnection">
-        <property name="checkConfigurationPath" hidden="true" default="/api/"/>
-        <property name="scriptLocation" hidden="true" default="configuration/HttpConnectionCheck.py"/>
-        <property name="checkConfigurationContentType" hidden="true" default="application/json"/>
+        <property name="checkConfigurationPath" hidden="true" default="/api/" />
+        <property name="scriptLocation" hidden="true" default="configuration/HttpConnectionCheck.py" />
+        <property name="checkConfigurationContentType" hidden="true" default="application/json" />
     </type>
 
     <type type="ansible.TowerTask" extends="xlrelease.PythonScript" virtual="true">
-        <property name="taskColor" hidden="true" default="#FF9E3B"/>
-        <property name="iconLocation" default="tower/tower_logo.svg" hidden="true"/>
-        <property name="tower_server" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower"
-                  kind="ci" required="true" description="Ansible Tower Server."/>
-        <property name="username" category="input" required="false"/>
-        <property name="password" password="true" category="input" required="false"/>
+        <property name="taskColor" hidden="true" default="#FF9E3B" />
+        <property name="iconLocation" default="tower/tower_logo.svg" hidden="true" />
+        <property name="tower_server" category="input" label="Ansible Tower Server" referenced-type="ansible.Tower" kind="ci" required="true" description="Ansible Tower Server." />
+        <property name="username" category="input" required="false" />
+        <property name="password" password="true" category="input" required="false" />
     </type>
 
     <type type="ansible.LaunchJob" extends="ansible.TowerTask">
-        <property name="scriptLocation" hidden="true" default="ansible_tower/run_job_template.py"/>
+        <property name="scriptLocation" hidden="true" default="ansible_tower/run_job_template.py" />
 
         <!-- input params -->
-        <property name="jobTemplate" category="input" required="true"
-                  description="Primary key or name of the job template to launch new job."/>
+        <property name="jobTemplate" category="input" required="true" description="Primary key or name of the job template to launch new job." />
         <!-- input params for workflow - START -->
-        <property name="isTemplateWorkflow" kind="boolean" category="input" required="false" default="false"
-                  description="If job template is a workflow, tick this option."/>
-        <!-- input params for workflow - END -->                  
-        <property name="inventory" category="input" kind="string" required="false"
-                  description="The inventory name of a integer value for the foreign key of an inventory to use in this job run"/>
-        <property name="credential" category="input" kind="string" required="false"
-                  description="The credential name or a integer value for the foreign key of a credential to use in this job run"/>
-        <property name="extraVars" category="input" required="false" kind="list_of_string" size="large" hidden="true"
-                  description="yaml formatted texts that contains extra variables to pass on."/>
-        <property label="Extra Vars" name="extraVars2" category="input" required="false" kind="string" size="large"
-                  description="a single yaml formatted text that contains extra variables to pass on."/>
-        <property name="taskPasswordToken" required="false" category="input" hidden="true"/>
-        <property name="taskPassword" required="false" password="true" category="input" hidden="true"/>
-        <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true"
-                  description="Wait for successful completion or fail."/>
-        <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true"
-                  description="Fail task when job fails"/>
+        <property name="isTemplateWorkflow" kind="boolean" category="input" required="false" default="false" description="If job template is a workflow, tick this option." />
+        <!-- input params for workflow - END -->
+        <property name="inventory" category="input" kind="string" required="false" description="The inventory name of a integer value for the foreign key of an inventory to use in this job run" />
+        <property name="credential" category="input" kind="string" required="false" description="The credential name or a integer value for the foreign key of a credential to use in this job run" />
+        <property name="extraVars" category="input" required="false" kind="list_of_string" size="large" hidden="true" description="yaml formatted texts that contains extra variables to pass on." />
+        <property label="Limit" name="limit" category="input" required="false" kind="string" size="large" description="Provide a host pattern to further constrain the list of hosts that will be managed or affected by the playbook. Multiple patterns are allowed. Refer to Ansible documentation for more information and examples on patterns." />
+        <property label="Extra Vars" name="extraVars2" category="input" required="false" kind="string" size="large" description="a single yaml formatted text that contains extra variables to pass on." />
+        <property name="taskPasswordToken" required="false" category="input" hidden="true" />
+        <property name="taskPassword" required="false" password="true" category="input" hidden="true" />
+        <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true" description="Wait for successful completion or fail." />
+        <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true" description="Fail task when job fails" />
 
         <!-- output params -->
-        <property name="jobId" category="output"/>
-        <property name="jobStatus" category="output"/>
+        <property name="jobId" category="output" />
+        <property name="jobStatus" category="output" />
 
-        <property name="jobTemplateId" category="input" kind="integer" required="true" hidden="true" default="9999"/>
+        <property name="jobTemplateId" category="input" kind="integer" required="true" hidden="true" default="9999" />
     </type>
 
     <type type="ansible.SynchronizeInventory" extends="ansible.TowerTask">
-        <property name="scriptLocation" hidden="true" default="ansible_tower/run_inventory_update.py"/>
+        <property name="scriptLocation" hidden="true" default="ansible_tower/run_inventory_update.py" />
 
         <!-- input params -->
-        <property name="inventorySource" category="input" kind="integer" required="true" description="The integer key of the inventory source to update"/>
-        <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true" description="Wait for successful completion or fail."/>
-        <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true" description="Fail task when job fails"/>
+        <property name="inventorySource" category="input" kind="integer" required="true" description="The integer key of the inventory source to update" />
+        <property name="waitTillComplete" kind="boolean" category="input" required="false" default="true" description="Wait for successful completion or fail." />
+        <property name="stopOnFailure" kind="boolean" category="input" required="false" default="true" description="Fail task when job fails" />
 
         <!-- output params -->
-        <property name="jobStatus" category="output"/>
+        <property name="jobStatus" category="output" />
     </type>
 
-    <type type="ansible.LaunchJobTemplate" extends="ansible.LaunchJob"/>
+    <type type="ansible.LaunchJobTemplate" extends="ansible.LaunchJob" />
 
 </synthetic>
