@@ -38,6 +38,7 @@ Define the url, username and password for the Ansible Tower Server in the XL Rel
 
 ### Launch Job Task
 
+Define the job template, and optionally the inventory, limit (as comma separated items) and optionally extra variables needed by the job template.
 ![AnsibleTowerLaunchJob](images/launch_job.png)
 
 ### Synchronize Inventory Task
