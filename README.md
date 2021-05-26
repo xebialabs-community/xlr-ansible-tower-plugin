@@ -26,7 +26,7 @@ This plugin enables Ansible Tower job execution from XL Release.
 
 ## Installation
 
-The plugin JAR file can be downloaded from [releases](https://github.com/xebialabs-community/xld-ansible-tower-plugin/releases).
+The plugin JAR file can be downloaded from [releases](https://github.com/xebialabs-community/xlr-ansible-tower-plugin/releases).
 Copy the downloaded JAR into the `SERVER_HOME/plugins/__local__` directory of XL Release.
 
 ## Usage
