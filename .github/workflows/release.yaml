@@ -21,4 +21,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            ./build/distributions/xlr-ansible-tower-plugin-*.*.jar
+            ./build/libs/xlr-ansible-tower-plugin-*.*.jar
