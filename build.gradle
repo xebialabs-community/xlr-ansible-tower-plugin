@@ -25,6 +25,8 @@ repositories {
 
 defaultTasks 'build'
 
+version = "1.6.1"
+
 sourceSets.main.resources.srcDirs += ["src/main/jython"]
 sourceSets.main.resources.srcDirs += ["src/main/resources"]
 sourceSets.test.resources.srcDirs += ["src/test/jython"]
@@ -71,7 +73,7 @@ dependencies {
 
     compile 'com.google.guava:guava:23.0'
 
-    jython ":ansible-tower-cli:3.2.1:tower_cli"
+    jython ":ansible-tower-cli:3.3.9:tower_cli"
     jython ":click:6.7"
     jython ":colorama:0.3.9"
     jython python(":six:1.11.0") {
